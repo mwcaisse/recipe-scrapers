@@ -79,6 +79,21 @@ class AbstractScraper(metaclass=ExceptionHandlingMetaclass):
     def image(self):
         raise NotImplementedError("This should be implemented.")
 
+    def page_images(self):
+        """ List of URLs of images that exist on the page """
+
+        def valid_image(image):
+            image_src = image.get("src")
+            image_width = int(image.get("width", 0))
+            return (
+                image_src
+                and image_src.lower().startswith("http")
+                and image_width >= 500
+            )
+
+        images_html = self.soup.findAll("img")
+        return [image.get("src") for image in images_html if valid_image(image)]
+
     @Decorators.schema_org_priority
     def nutrients(self):
         raise NotImplementedError("This should be implemented.")

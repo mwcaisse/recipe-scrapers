@@ -1,10 +1,10 @@
 from ._abstract import AbstractScraper
 
 
-class BudgetBytes(AbstractScraper):
+class TheCleverCarrot(AbstractScraper):
     @classmethod
     def host(cls):
-        return "budgetbytes.com"
+        return "theclevercarrot.com"
 
     def title(self):
         return self.schema.title()
@@ -14,6 +14,9 @@ class BudgetBytes(AbstractScraper):
 
     def yields(self):
         return self.schema.yields()
+
+    def image(self):
+        return self.schema.image()
 
     def ingredients(self):
         return self.schema.ingredients()
